@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>会員登録完了</title>
+</head>
+<body>
+	<h1>登録完了</h1>
+	
+	<span>[[${account.name}]]様</span><br>
+	<span>ご登録ありがとうございます。</span><br>
+	<span>[[${account.email}]]宛てに登録完了メールをお送りしました。</span>
+	
+	
+	<p>
+		登録完了画面では、テキストボックスに入力した名前とメールアドレスを出力されます。<br>
+		実際にメール送信は不要です。
+	</p>
+</body>
+</html>

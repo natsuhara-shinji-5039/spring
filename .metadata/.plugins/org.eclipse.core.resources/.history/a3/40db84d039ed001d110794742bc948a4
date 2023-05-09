@@ -1,0 +1,16 @@
+package com.example.demo.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
+import jakarta.servlet.http.HttpSession;
+
+@Controller
+public class AccountController {
+	
+	@Autowired
+	HttpSession session;
+	
+	@Autowired
+	Account account;
+}

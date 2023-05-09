@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>日記</title>
+</head>
+<body>
+	<h1>日記</h1>
+	こんにちは、[[${@account.name}]]さん
+	<div th:if="${flag}" style="color:red;">タイトルと書き込み内容を入力してください</div>
+	<form action="/blog" method="post">
+		<p>
+			<input type="text" name="title" placeholder="タイトル">
+		</p>
+		<p>
+			<select name="feeling">
+				<option value="nomal">&#x1f600;</option>
+				<option value="fun">男性</option>
+				<option value="sad">男性</option>
+			</select>
+		</p>
+		<p>
+			<textarea name="content" placeholder="内容"></textarea>
+		</p>
+		<p>
+			<button>投稿する</button>
+		</p>
+	</form>
+	<hr>
+	<table style="width:100%;" border="1">
+		<tr>
+			<th>日時</th>
+			<th>タイトル</th>
+			<th>書き込み</th>
+		</tr>
+		<tr th:each="post:${@postList.posts}">
+			<td th:text="${post.createdAt}"></td>
+			<td th:text="${post.title}"></td>
+			<td th:text="${post.content}"></td>
+		</tr>
+	</table>
+	<a href="/logout">すべてクリアする</a>
+</body>
+</html>
+
+

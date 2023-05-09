@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div th:if="${status}==0">
+		<form action="" method="post">
+		  ユーザーID:
+		  <input type="text" name="userId"><br>
+		  パスワード:
+		  <input type="text" name="password">
+		  <button>ログイン</button>
+	  </form>
+	  [[${comment}]]
+	</div>
+	<div th:if="${status}==1">
+		<h1>こんにちは!</h1>
+	</div>
+</body>
+</html>

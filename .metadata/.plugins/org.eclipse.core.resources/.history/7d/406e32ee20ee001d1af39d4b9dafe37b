@@ -1,0 +1,47 @@
+package com.example.demo.controller;
+
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.example.demo.entity.Item;
+import com.example.demo.repository.ItemRepository;
+
+@Controller
+public class ItemController {
+	
+	@Autowired
+	ItemRepository itemRepository;
+	
+	// 商品一覧ページ
+	@GetMapping("/items")
+	public String index(
+			@RequestParam(name="sort", defaultValue = "") String sort,
+			@RequestParam(name="maxPrice", defaultValue="") Integer maxPrice,
+			@RequestParam(name="keyword", defaultValue="") String keyword,
+			Model model) {
+		List<Item> itemList = null;
+		if(maxPrice != null && !keyword.equals("")) {
+			itemList = itemRepository.findByPriceLessThanEqualAndNameLike(maxPrice, "%" + keyword + "%");
+			System.out.println("test");
+		}else if(sort.equals("priceAsc")) {
+			itemList = itemRepository.findAllByOrderByPrice();
+//			itemList = itemRepository.findAll();
+		} else if(maxPrice != null) {
+			itemList = itemRepository.findByPriceLessThanEqual(maxPrice);
+		} else if(!keyword.equals("")) {
+			itemList = itemRepository.findByNameLike("%" + keyword + "%");
+		} else {
+			itemList = itemRepository.findAll();
+		}
+		model.addAttribute("price", maxPrice);
+		model.addAttribute("items", itemList);
+		return "items";
+	}
+	
+}

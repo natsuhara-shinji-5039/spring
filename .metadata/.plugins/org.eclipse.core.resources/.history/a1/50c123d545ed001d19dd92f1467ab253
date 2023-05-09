@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>誕生日入力</title>
+</head>
+<body>
+	[[${@account.name}]]さんの誕生日は？<br>
+	
+	<form action="/calcAge" method="post">
+		
+	</form>
+</body>
+</html>
