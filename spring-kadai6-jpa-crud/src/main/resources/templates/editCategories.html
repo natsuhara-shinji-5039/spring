@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>カテゴリー更新</title>
+</head>
+<body>
+	<h1>カテゴリー更新</h1>
+	
+	<form th:action="'/categories/' + ${category.id} + '/edit'" method="post">
+		<table border="1">
+			<tr>
+				<th>カテゴリー名</th>
+				<td><input type="text" name="name" th:value="${category.name}"></td>
+			</tr>
+		</table>
+		<button>登録</button>
+	</form>
+</body>
+</html>
