@@ -46,29 +46,27 @@ public class AccountController {
 	// ログインを実行
 	@PostMapping("/login")
 	public String login(
-			@RequestParam(name="name", defaultValue="") String email,
+			@RequestParam(name="email", defaultValue="") String email,
 			@RequestParam(name="password", defaultValue="") String password,
 			Model model) {
 		List<String> errors = new ArrayList<String>();
+		List<Customer> customer = customerRepository.findByEmail(email);
 		// 名前が空の場合にエラーとする
 		if (email.equals("")) {
 			errors.add("メールアドレスを入力してください");
 //			model.addAttribute("message", "名前を入力してください");
 //			return "login";
+		} else if(customer.size() == 0) {
+			errors.add("こちらのメールアドレスのアカウントが存在しません");
 		}
 		
 		if(password.equals("")) {
 			errors.add("パスワードを入力してください");
 		}
 		
-		List<Customer> Customer = customerRepository.findByEmailLike(email);
-		if(Customer.size() == 0) {
-			errors.add("こちらのメールアドレスのアカウントが存在しません");
-		}
-		
-		if(errors.size() < 0) {
+		if(errors.size() == 0) {
 			// セッション管理されたアカウント情報に名前をセット
-			account.setName(Customer.name);
+			account.setName(customer.get(0).getName());
 
 			// 「/items」へのリダイレクト
 			return "redirect:/items";
@@ -109,7 +107,7 @@ public class AccountController {
 			err.add("パスワードは必須です");
 		}
 		
-		List<Customer> checkCustomer = customerRepository.findByEmailLike(email);
+		List<Customer> checkCustomer = customerRepository.findByEmail(email);
 		if(checkCustomer.size() > 0) {
 			err.add("登録済みのメールアドレスです");
 		}
