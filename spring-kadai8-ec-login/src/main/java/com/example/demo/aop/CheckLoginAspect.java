@@ -22,11 +22,10 @@ public class CheckLoginAspect {
 	@Before("execution(* com.example.demo.controller.*Controller.*(..))")
 	public void writeLog(JoinPoint jp) {
 		// ログインしたアカウント情報を取得
-		if (account == null || account.getName() == null
-				|| account.getName().length() == 0) {
+		if (account == null || account.getCustomer() == null) {
 			System.out.print("ゲスト：");
 		} else {
-			System.out.print(account.getName() + "：");
+			System.out.print(account.getCustomer() + "：");
 		}
 		System.out.println(jp.getSignature());
 	}
@@ -37,8 +36,7 @@ public class CheckLoginAspect {
 			+ "execution(* com.example.demo.controller.OrderController.*(..))")
 	public Object checkLogin(ProceedingJoinPoint jp) throws Throwable {
 
-		if (account == null || account.getName() == null
-				|| account.getName().length() == 0) {
+		if (account == null || account.getCustomer() == null) {
 			System.err.println("ログインしていません!");
 			// リダイレクト先を指定する
 			// パラメータを渡すことでログインControllerで

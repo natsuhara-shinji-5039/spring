@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>商品</h1>
+	<table border="1">
+		<thead>
+			<tr>
+				<th>商品ID</th>
+				<th>商品名</th>
+				<th>値段</th>
+				<th>在庫</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td th:text="${product.id}"></td>
+				<td th:text="${product.name}"></td>
+				<td th:text="${product.price}"></td>
+				<td th:text="${product.stock}"></td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<p></p>
+	<span th:text="${err}"></span>
+	<form th:action="'/storing/' + ${product.id}" method="post">
+		<input type="text" name="storing">
+		<button>入庫</button>
+	</form>
+	
+	<form th:action="'/issue/' + ${product.id}" method="post">
+		<input type="text" name="issue">
+		<button>出庫</button>
+	</form>
+	
+	<h1>入出庫履歴</h1>
+	<div th:if="${stocks.size() > 0}">
+	<table border="1">
+		<thead>
+			<tr>
+				<th>入出庫日時</th>
+				<th>入庫</th>
+				<th>出庫</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="stock: ${stocks}"}>
+				<td th:text="${stock.createTime}"></td>
+				<td><span th:if="${stock.storing != 0}" th:text="${stock.storing}"></span></td>
+				<td><span th:if="${stock.issue != 0}" th:text="${stock.issue}"></span></td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+	<div th:if="${stocks.size() == 0}"><h2>履歴なし</h2></div>
+</body>
+</html>

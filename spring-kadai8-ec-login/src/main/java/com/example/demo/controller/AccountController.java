@@ -57,20 +57,24 @@ public class AccountController {
 //			model.addAttribute("message", "名前を入力してください");
 //			return "login";
 		} else if(customer.size() == 0) {
-			errors.add("こちらのメールアドレスのアカウントが存在しません");
+			errors.add("アカウントが存在しません");
+		} else if(customer.size() != 0 && !customer.get(0).getPassword().equals(password)) {
+			errors.add("パスワードが一致しません");
 		}
 		
-		if(password.equals("")) {
+		if(password.equals("") && customer != null) {
 			errors.add("パスワードを入力してください");
 		}
 		
 		if(errors.size() == 0) {
 			// セッション管理されたアカウント情報に名前をセット
-			account.setName(customer.get(0).getName());
+			account.setCustomer(customer.get(0));
 
 			// 「/items」へのリダイレクト
 			return "redirect:/items";
 		} else {
+			model.addAttribute("email", email);
+			model.addAttribute("password", password);
 			model.addAttribute("errors", errors);
 			return "login";
 		}

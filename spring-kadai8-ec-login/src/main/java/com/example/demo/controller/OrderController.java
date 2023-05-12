@@ -9,19 +9,25 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.demo.entity.Customer;
 import com.example.demo.entity.Item;
 import com.example.demo.entity.Order;
 import com.example.demo.entity.OrderDetail;
+import com.example.demo.model.Account;
 import com.example.demo.model.Cart;
 import com.example.demo.repository.CustomerRepository;
 import com.example.demo.repository.OrderDetailRepository;
 import com.example.demo.repository.OrderRepository;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class OrderController {
+	@Autowired
+	HttpSession session;
+
+	@Autowired
+	Account account;
 
 	@Autowired
 	Cart cart;
@@ -45,15 +51,16 @@ public class OrderController {
 	// 注文内容およびお客様情報内容の確認画面を表示
 	@PostMapping("/order/confirm")
 	public String confirm(
-			@RequestParam("name") String name,
-			@RequestParam("address") String address,
-			@RequestParam("tel") String tel,
-			@RequestParam("email") String email,
+//			@RequestParam("name") String name,
+//			@RequestParam("address") String address,
+//			@RequestParam("tel") String tel,
+//			@RequestParam("email") String email,
 			Model model) {
+		
 
 		// お客様情報をまとめる
-		Customer customer = new Customer(name, address, tel, email);
-		model.addAttribute("customer", customer);
+//		Customer customer = new Customer(name, address, tel, email);
+//		model.addAttribute("customer", customer);
 
 		return "orderConfirm";
 	}
@@ -61,19 +68,19 @@ public class OrderController {
 	// 注文する
 	@PostMapping("/order")
 	public String order(
-			@RequestParam("name") String name,
-			@RequestParam("address") String address,
-			@RequestParam("tel") String tel,
-			@RequestParam("email") String email,
+//			@RequestParam("name") String name,
+//			@RequestParam("address") String address,
+//			@RequestParam("tel") String tel,
+//			@RequestParam("email") String email,
 			Model model) {
 
 		// 1. お客様情報をDBに格納する
-		Customer customer = new Customer(name, address, tel, email);
-		customerRepository.save(customer);
+//		Customer customer = new Customer(name, address, tel, email);
+//		customerRepository.save(customer);
 
 		// 2. 注文情報をDBに格納する
 		Order order = new Order(
-				customer.getId(),
+				account.getCustomer().getId(),
 				LocalDate.now(),
 				cart.getTotalPrice());
 		orderRepository.save(order);
