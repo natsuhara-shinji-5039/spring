@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>顧客一覧</title>
+</head>
+<body>
+	<h1>顧客一覧</h1>
+	<span>こんにちは、[[${@account.name}]]さん</span>
+	<form action="/users" method="get">
+		<input type="text" name="keyword">
+		<button>検索</button>
+	</form>
+	<table border="1">
+		<thead>
+			<tr>
+				<th>顧客ID</th>
+				<th>名前</th>
+				<th>メールアドレス</th>
+				<th>パスワード</th>
+				<th>更新</th>
+				<th>削除</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+			<tr th:each="user: ${users}">
+				<td th:text="${user.id}"></td>
+				<td th:text="${user.name}"></td>
+				<td th:text="${user.email}"></td>
+				<td th:text="${user.password}"></td>
+				<td>
+					<form th:action="'/users/' + ${user.id} + '/edit'" method="get">
+						<button>更新</button>
+					</form>
+				</td>
+				<td>
+					<form th:action="'/users/' + ${user.id} + '/delete'" method="post">
+						<button>削除</button>
+					</form>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<a href="/users/add">新規登録</a><br>
+	<a href="/logout">ログアウト</a>
+</body>
+</html>

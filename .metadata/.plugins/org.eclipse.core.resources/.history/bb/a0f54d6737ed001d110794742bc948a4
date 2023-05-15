@@ -1,5 +1,0 @@
-package com.example.demo.controller.aop;
-
-public class CheckLoginAspect {
-
-}

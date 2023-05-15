@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>注文情報</title>
+</head>
+<body>
+	<h1>顧客情報</h1>
+	<table border="1">
+		<thead>
+			<tr>
+				<th>顧客ID</th>
+				<th>名前</th>
+				<th>住所</th>
+				<th>電話番号</th>
+				<th>メールアドレス</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td th:text="${customer.id}"></td>
+				<td th:text="${customer.name}"></td>
+				<td th:text="${customer.address}"></td>
+				<td th:text="${customer.tel}"></td>
+				<td th:text="${customer.email}"></td>
+			</tr>
+		</tbody>
+	</table>
+	<h1>注文情報</h1>
+	<table border="1">
+		<thead>
+			<tr>
+				<th>注文ID</th>
+				<th>注文日</th>
+				<th>合計金額</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="order: ${orders}">
+				<td th:text="${order.id}"></td>
+				<td th:text="${order.orderedOn}"></td>
+				<td th:text="${order.totalPrice}"></td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<h1>注文明細</h1>
+	<table border="1">
+		<thead>
+			<tr>
+				<th>注文ID</th>
+				<th>商品ID</th>
+				<th>個数</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="orderDetail: ${orderDetails}">
+				<td th:text="${orderDetail.orderId}"></td>
+				<td th:text="${orderDetail.itemId}"></td>
+				<td th:text="${orderDetail.quantity}"></td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

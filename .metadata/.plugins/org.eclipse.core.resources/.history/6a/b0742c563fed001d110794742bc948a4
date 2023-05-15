@@ -1,7 +1,0 @@
-package com.example.demo.aop;
-
-@Aspect
-@Component
-public class CheckLoginAspect {
-
-}
